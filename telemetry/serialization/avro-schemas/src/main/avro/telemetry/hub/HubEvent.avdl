@@ -1,0 +1,17 @@
+@namespace("ru.yandex.practicum.kafka.telemetry.hub")
+protocol HubEventProtocol {
+
+	import schema "ActionTypeAvro.avsc";
+	import schema "ConditionOperationAvro.avsc";
+	import schema "ConditionTypeAvro.avsc";
+	import schema "DeviceTypeAvro.avsc";
+
+	import schema "DeviceActionAvro.avsc";
+	import schema "ScenarioConditionAvro.avsc";
+	import schema "DeviceAddedEventAvro.avsc";
+	import schema "DeviceRemovedEventAvro.avsc";
+	import schema "ScenarioAddedEventAvro.avsc";
+	import schema "ScenarioRemovedEventAvro.avsc";
+
+	import schema "HubEventAvro.avsc";
+}

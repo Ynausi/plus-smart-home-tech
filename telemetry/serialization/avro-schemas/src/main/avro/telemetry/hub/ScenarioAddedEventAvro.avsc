@@ -1,0 +1,25 @@
+{
+  "type": "record",
+  "namespace": "ru.yandex.practicum.kafka.telemetry.hub",
+  "name": "ScenarioAddedEventAvro",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "conditions",
+      "type": {
+        "type": "array",
+        "items": "ScenarioConditionAvro"
+      }
+    },
+    {
+      "name": "actions",
+      "type": {
+        "type": "array",
+        "items": "DeviceActionAvro"
+      }
+    }
+  ]
+}

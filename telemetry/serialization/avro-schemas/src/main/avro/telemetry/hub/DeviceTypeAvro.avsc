@@ -1,0 +1,12 @@
+{
+  "type": "enum",
+  "namespace": "ru.yandex.practicum.kafka.telemetry.hub",
+  "name": "DeviceTypeAvro",
+  "symbols": [
+    "MOTION_SENSOR",
+    "TEMPERATURE_SENSOR",
+    "LIGHT_SENSOR",
+    "CLIMATE_SENSOR",
+    "SWITCH_SENSOR"
+  ]
+}

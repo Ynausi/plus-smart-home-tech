@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import ru.practicum.mapper.SensorEventMapper;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import ru.yandex.practicum.kafka.telemetry.event.SensorEventAvro;
+import ru.yandex.practicum.kafka.telemetry.sensor.SensorEventAvro;
 
 @Service
 @RequiredArgsConstructor

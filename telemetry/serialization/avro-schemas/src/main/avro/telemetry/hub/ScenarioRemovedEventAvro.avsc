@@ -1,0 +1,11 @@
+{
+  "type": "record",
+  "namespace": "ru.yandex.practicum.kafka.telemetry.hub",
+  "name": "ScenarioRemovedEventAvro",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string"
+    }
+  ]
+}

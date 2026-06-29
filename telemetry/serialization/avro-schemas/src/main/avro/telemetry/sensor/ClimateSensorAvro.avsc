@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "namespace": "ru.yandex.practicum.kafka.telemetry.sensor",
+  "name": "ClimateSensorAvro",
+  "fields": [
+    {
+      "name": "temperature_c",
+      "type": "int"
+    },
+    {
+      "name": "humidity",
+      "type": "int"
+    },
+    {
+      "name": "co2_level",
+      "type": "int"
+    }
+  ]
+}

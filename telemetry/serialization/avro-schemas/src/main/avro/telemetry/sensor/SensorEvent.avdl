@@ -1,0 +1,11 @@
+@namespace("ru.yandex.practicum.kafka.telemetry.sensor")
+protocol SensorEventProtocol {
+
+	import schema "ClimateSensorAvro.avsc";
+	import schema "LightSensorAvro.avsc";
+	import schema "MotionSensorAvro.avsc";
+	import schema "SwitchSensorAvro.avsc";
+	import schema "TemperatureSensorAvro.avsc";
+
+	import schema "SensorEventAvro.avsc";
+}

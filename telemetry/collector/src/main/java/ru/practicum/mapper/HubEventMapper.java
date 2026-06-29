@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import ru.practicum.dto.hub.*;
-import ru.yandex.practicum.kafka.telemetry.event.*;
+import ru.yandex.practicum.kafka.telemetry.hub.*;
 
 import java.time.Instant;
 
@@ -20,7 +20,7 @@ public interface HubEventMapper {
         };
         return HubEventAvro.newBuilder()
                 .setHubId(dto.getHubId())
-                .setTimestamp(instantToMillis(dto.getTimestamp()))
+                .setTimestamp(dto.getTimestamp())
                 .setPayload(payload)
                 .build();
     }

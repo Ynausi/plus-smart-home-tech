@@ -6,7 +6,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import ru.practicum.dto.hub.HubEventDto;
 import ru.practicum.mapper.HubEventMapper;
-import ru.yandex.practicum.kafka.telemetry.event.HubEventAvro;
+import ru.yandex.practicum.kafka.telemetry.hub.HubEventAvro;
 
 @Service
 @RequiredArgsConstructor

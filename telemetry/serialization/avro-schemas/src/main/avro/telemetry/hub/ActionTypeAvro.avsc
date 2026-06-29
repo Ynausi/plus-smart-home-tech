@@ -1,0 +1,11 @@
+{
+  "type": "enum",
+  "namespace": "ru.yandex.practicum.kafka.telemetry.hub",
+  "name": "ActionTypeAvro",
+  "symbols": [
+    "ACTIVATE",
+    "DEACTIVATE",
+    "INVERSE",
+    "SET_VALUE"
+  ]
+}

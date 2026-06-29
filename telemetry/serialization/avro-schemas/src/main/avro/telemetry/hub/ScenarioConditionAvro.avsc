@@ -1,0 +1,24 @@
+{
+  "type": "record",
+  "namespace": "ru.yandex.practicum.kafka.telemetry.hub",
+  "name": "ScenarioConditionAvro",
+  "fields": [
+    {
+      "name": "sensor_id",
+      "type": "string"
+    },
+    {
+      "name": "type",
+      "type": "ConditionTypeAvro"
+    },
+    {
+      "name": "operation",
+      "type": "ConditionOperationAvro"
+    },
+    {
+      "name": "value",
+      "type": ["null", "int", "boolean"],
+      "default": null
+    }
+  ]
+}

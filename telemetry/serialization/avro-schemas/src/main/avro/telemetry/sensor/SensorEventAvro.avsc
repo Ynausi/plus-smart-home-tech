@@ -1,0 +1,32 @@
+{
+  "type": "record",
+  "namespace": "ru.yandex.practicum.kafka.telemetry.sensor",
+  "name": "SensorEventAvro",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "hubId",
+      "type": "string"
+    },
+    {
+      "name": "timestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "payload",
+      "type": [
+        "ClimateSensorAvro",
+        "LightSensorAvro",
+        "MotionSensorAvro",
+        "SwitchSensorAvro",
+        "TemperatureSensorAvro"
+      ]
+    }
+  ]
+}
