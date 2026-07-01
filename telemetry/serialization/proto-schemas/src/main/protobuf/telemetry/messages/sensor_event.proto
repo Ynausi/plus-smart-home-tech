@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package ru.yandex.practicum.grpc.telemetry.event;
+package telemetry.event;
 
 import "google/protobuf/timestamp.proto";
 
