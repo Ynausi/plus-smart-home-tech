@@ -1,0 +1,15 @@
+{
+  "type": "record",
+  "namespace": "ru.yandex.practicum.kafka.telemetry.sensor",
+  "name": "LightSensorAvro",
+  "fields": [
+    {
+      "name": "link_quality",
+      "type": "int"
+    },
+    {
+      "name": "luminosity",
+      "type": "int"
+    }
+  ]
+}

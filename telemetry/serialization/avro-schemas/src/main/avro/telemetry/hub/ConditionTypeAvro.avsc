@@ -1,0 +1,13 @@
+{
+  "type": "enum",
+  "namespace": "ru.yandex.practicum.kafka.telemetry.hub",
+  "name": "ConditionTypeAvro",
+  "symbols": [
+    "MOTION",
+    "LUMINOSITY",
+    "SWITCH",
+    "TEMPERATURE",
+    "CO2LEVEL",
+    "HUMIDITY"
+  ]
+}

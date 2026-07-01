@@ -1,0 +1,27 @@
+{
+  "type": "record",
+  "namespace": "ru.yandex.practicum.kafka.telemetry.hub",
+  "name": "HubEventAvro",
+  "fields": [
+    {
+      "name": "hubId",
+      "type": "string"
+    },
+    {
+      "name": "timestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "payload",
+      "type": [
+        "DeviceAddedEventAvro",
+        "DeviceRemovedEventAvro",
+        "ScenarioAddedEventAvro",
+        "ScenarioRemovedEventAvro"
+      ]
+    }
+  ]
+}
