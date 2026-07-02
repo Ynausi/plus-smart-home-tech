@@ -37,7 +37,7 @@ message DeviceActionProto {
 
 message DeviceAddedEventProto {
   string id = 1;
-  DeviceActionProto type =2;
+  DeviceTypeProto type =2;
 }
 
 message DeviceRemovedEventProto {
@@ -73,7 +73,10 @@ message ScenarioConditionProto {
   string sensor_id = 1;
     ConditionTypeProto type = 2;
     ConditionOperationProto operation = 3;
-    optional int32 value = 4;
+  oneof value {
+    bool bool_value = 4;
+    int32 int_value = 5;
+  }
 }
 
 message ScenarioRemovedEventProto {
