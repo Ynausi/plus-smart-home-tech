@@ -1,4 +1,4 @@
-package ru.practicum.controller;
+/*package ru.practicum.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.practicum.dto.sensor.SensorEventDto;
@@ -22,4 +22,4 @@ public class SensorController {
         sensorService.createSensor(sensorEventDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-}
+}*/

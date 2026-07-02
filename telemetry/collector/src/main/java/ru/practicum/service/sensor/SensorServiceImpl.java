@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import ru.practicum.mapper.SensorEventMapper;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.grpc.telemetry.event.SensorEventProto;
 import ru.yandex.practicum.kafka.telemetry.sensor.SensorEventAvro;
 
 @Service
@@ -18,9 +19,10 @@ public class SensorServiceImpl implements SensorService{
     private final SensorEventMapper sensorMapper;
 
     @Override
-    public void createSensor(SensorEventDto sensorEventDto) {
-        SensorEventAvro avroEvent = sensorMapper.toAvro(sensorEventDto);
-        log.info("id = {},type = {}",sensorEventDto.getId(),sensorEventDto.getType());
-        kafkaTemplate.send(SENSOR_TOPIC,sensorEventDto.getHubId(),avroEvent);
+    public void createSensor(SensorEventProto proto) {
+        SensorEventDto dto = sensorMapper.fromProto(proto);
+        SensorEventAvro avroEvent = sensorMapper.toAvro(dto);
+        log.info("id = {},type = {}",dto.getId(),dto.getType());
+        kafkaTemplate.send(SENSOR_TOPIC,dto.getHubId(),avroEvent);
     }
 }

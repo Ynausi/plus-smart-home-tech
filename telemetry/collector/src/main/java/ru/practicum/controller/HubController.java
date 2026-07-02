@@ -1,4 +1,4 @@
-package ru.practicum.controller;
+/*package ru.practicum.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,4 +23,4 @@ public class HubController {
         hubService.createHub(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-}
+}*/

@@ -1,15 +1,84 @@
 package ru.practicum.mapper;
 
+import com.google.protobuf.Timestamp;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import ru.practicum.dto.sensor.*;
+import ru.yandex.practicum.grpc.telemetry.event.*;
 import ru.yandex.practicum.kafka.telemetry.sensor.*;
 
 import java.time.Instant;
 
 @Mapper(componentModel = "spring",imports = SensorEventType.class)
 public interface SensorEventMapper {
+
+    default SensorEventDto fromProto(SensorEventProto proto) {
+        return switch (proto.getPayloadCase()) {
+            case LIGHT_SENSOR -> {
+                LightSensorEventDto dto = fromProto(proto.getLightSensor());
+                dto.setId(proto.getId());
+                dto.setHubId(proto.getHubId());
+                dto.setTimestamp(fromTimestamp(proto.getTimestamp()));
+                yield dto;
+            }
+            case CLIMATE_SENSOR -> {
+                ClimateSensorEventDto dto = fromProto(proto.getClimateSensor());
+                dto.setId(proto.getId());
+                dto.setHubId(proto.getHubId());
+                dto.setTimestamp(fromTimestamp(proto.getTimestamp()));
+                yield dto;
+            }
+            case MOTION_SENSOR -> {
+                MotionSensorEventDto dto = fromProto(proto.getMotionSensor());
+                dto.setId(proto.getId());
+                dto.setHubId(proto.getHubId());
+                dto.setTimestamp(fromTimestamp(proto.getTimestamp()));
+                yield dto;
+            }
+            case SWITCH_SENSOR -> {
+                SwitchSensorEventDto dto = fromProto(proto.getSwitchSensor());
+                dto.setId(proto.getId());
+                dto.setHubId(proto.getHubId());
+                dto.setTimestamp(fromTimestamp(proto.getTimestamp()));
+                yield dto;
+            }
+            case TEMPERATURE_SENSOR -> {
+                TemperatureSensorEventDto dto = fromProto(proto.getTemperatureSensor());
+                dto.setId(proto.getId());
+                dto.setHubId(proto.getHubId());
+                dto.setTimestamp(fromTimestamp(proto.getTimestamp()));
+                yield dto;
+            }
+            case PAYLOAD_NOT_SET -> {
+                throw new IllegalArgumentException("Payload not set");
+            }
+        };
+    }
+    @Mapping(target = "hubId", ignore = true)
+    @Mapping(target = "timestamp", ignore = true)
+    @Mapping(target = "id",ignore = true)
+    LightSensorEventDto fromProto(LightSensorProto proto);
+
+    @Mapping(target = "hubId", ignore = true)
+    @Mapping(target = "timestamp", ignore = true)
+    @Mapping(target = "id",ignore = true)
+    MotionSensorEventDto fromProto(MotionSensorProto proto);
+
+    @Mapping(target = "hubId", ignore = true)
+    @Mapping(target = "timestamp", ignore = true)
+    @Mapping(target = "id",ignore = true)
+    SwitchSensorEventDto fromProto(SwitchSensorProto proto);
+
+    @Mapping(target = "hubId", ignore = true)
+    @Mapping(target = "timestamp", ignore = true)
+    @Mapping(target = "id",ignore = true)
+    TemperatureSensorEventDto fromProto(TemperatureSensorProto proto);
+
+    @Mapping(target = "hubId", ignore = true)
+    @Mapping(target = "timestamp", ignore = true)
+    @Mapping(target = "id",ignore = true)
+    ClimateSensorEventDto fromProto(ClimateSensorProto proto);
 
     default SensorEventAvro toAvro(SensorEventDto dto) {
 
@@ -54,5 +123,12 @@ public interface SensorEventMapper {
         return instant == null
                 ? Instant.now().toEpochMilli()
                 : instant.toEpochMilli();
+    }
+
+    default Instant fromTimestamp(Timestamp timestamp) {
+        return Instant.ofEpochSecond(
+                timestamp.getSeconds(),
+                timestamp.getNanos()
+        );
     }
 }
