@@ -1,0 +1,14 @@
+/*
+ * Comment for license information.
+ */
+/**
+ * Doc comment.
+ */
+@namespace("ru.yandex.practicum.kafka.telemetry.sensor")
+protocol SensorSnapshotProtocol {
+
+	import idl "SensorEvent.avdl";
+
+	import schema "SensorStateAvro.avsc";
+	import schema "SensorSnapshotAvro.avsc";
+}
