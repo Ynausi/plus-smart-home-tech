@@ -1,0 +1,24 @@
+{
+  "type": "record",
+  "namespace": "ru.yandex.practicum.kafka.telemetry.sensor",
+  "name": "SensorStateAvro",
+  "fields": [
+    {
+      "name": "timestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "data",
+      "type": [
+        "ClimateSensorAvro",
+        "LightSensorAvro",
+        "MotionSensorAvro",
+        "SwitchSensorAvro",
+        "TemperatureSensorAvro"
+      ]
+    }
+  ]
+}

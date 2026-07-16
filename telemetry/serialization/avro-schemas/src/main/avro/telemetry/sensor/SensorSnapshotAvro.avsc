@@ -1,0 +1,25 @@
+{
+  "type": "record",
+  "namespace": "ru.yandex.practicum.kafka.telemetry.sensor",
+  "name": "SensorSnapshotAvro",
+  "fields": [
+    {
+      "name": "hubId",
+      "type": "string"
+    },
+    {
+      "name": "timestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "sensorsState",
+      "type": {
+       "type": "map",
+        "values": "SensorStateAvro"
+      }
+    }
+  ]
+}
