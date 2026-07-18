@@ -1,4 +1,4 @@
-package ru.practicum.service.aggregator;
+package ru.yandex.practicum.service.aggregator;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import ru.yandex.practicum.kafka.telemetry.sensor.SensorEventAvro;
 import ru.yandex.practicum.kafka.telemetry.sensor.SensorSnapshotAvro;
-import ru.practicum.service.snapshot.SnapshotService;
+import ru.yandex.practicum.service.snapshot.SnapshotService;
 
 @Slf4j
 @Component

@@ -1,10 +1,11 @@
-package ru.practicum.mapper;
+package ru.yandex.practicum.mapper;
 
 import com.google.protobuf.Timestamp;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import ru.practicum.dto.sensor.*;
+import ru.yandex.practicum.dto.sensor.*;
+import ru.yandex.practicum.dto.sensor.*;
 import ru.yandex.practicum.grpc.telemetry.event.*;
 import ru.yandex.practicum.kafka.telemetry.sensor.*;
 

@@ -1,4 +1,4 @@
-package ru.practicum.service.snapshot;
+package ru.yandex.practicum.service.snapshot;
 
 import ru.yandex.practicum.kafka.telemetry.sensor.SensorEventAvro;
 import ru.yandex.practicum.kafka.telemetry.sensor.SensorSnapshotAvro;

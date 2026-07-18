@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import ru.practicum.kafka.HubEventDeserializer;
-import ru.practicum.kafka.SensorSnapshotDeserializer;
+import ru.yandex.practicum.kafka.HubEventDeserializer;
+import ru.yandex.practicum.kafka.SensorSnapshotDeserializer;
 import ru.yandex.practicum.kafka.telemetry.hub.HubEventAvro;
 import ru.yandex.practicum.kafka.telemetry.sensor.SensorSnapshotAvro;
 

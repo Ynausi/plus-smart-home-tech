@@ -1,4 +1,4 @@
-package ru.practicum.service.snapshot;
+package ru.yandex.practicum.service.snapshot;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

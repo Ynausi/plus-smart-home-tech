@@ -1,9 +1,9 @@
-package ru.practicum.service.sensor;
+package ru.yandex.practicum.service.sensor;
 
-import ru.practicum.dto.sensor.SensorEventDto;
+import ru.yandex.practicum.dto.sensor.SensorEventDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ru.practicum.mapper.SensorEventMapper;
+import ru.yandex.practicum.mapper.SensorEventMapper;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.grpc.telemetry.event.SensorEventProto;

@@ -1,8 +1,9 @@
-package ru.practicum.mapper;
+package ru.yandex.practicum.mapper;
 
 import com.google.protobuf.Timestamp;
 import org.mapstruct.*;
-import ru.practicum.dto.hub.*;
+import ru.yandex.practicum.dto.hub.*;
+import ru.yandex.practicum.dto.hub.*;
 import ru.yandex.practicum.grpc.telemetry.event.*;
 import ru.yandex.practicum.kafka.telemetry.hub.*;
 
@@ -95,8 +96,6 @@ public interface HubEventMapper {
 
     @ValueMapping(source = "UNRECOGNIZED",
             target = MappingConstants.THROW_EXCEPTION)
-
-
     ScenarioConditionOperation fromProto(ConditionOperationProto proto);
     default HubEventAvro toAvro(HubEventDto dto) {
         Object payload = switch (dto.getType()) {

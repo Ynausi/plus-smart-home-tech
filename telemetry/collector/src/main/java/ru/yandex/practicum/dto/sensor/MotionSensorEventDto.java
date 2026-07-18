@@ -1,4 +1,4 @@
-package ru.practicum.dto.sensor;
+package ru.yandex.practicum.dto.sensor;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

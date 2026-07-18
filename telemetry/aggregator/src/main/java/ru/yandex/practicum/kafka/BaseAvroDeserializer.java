@@ -1,4 +1,4 @@
-package ru.practicum.kafka;
+package ru.yandex.practicum.kafka;
 
 import org.apache.avro.Schema;
 import org.apache.avro.io.BinaryDecoder;

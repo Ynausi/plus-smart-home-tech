@@ -1,4 +1,4 @@
-package ru.practicum.dto.sensor;
+package ru.yandex.practicum.dto.sensor;
 
 public enum SensorEventType {
     MOTION_SENSOR_EVENT,

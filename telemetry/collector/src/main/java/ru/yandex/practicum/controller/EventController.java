@@ -1,11 +1,11 @@
-package ru.practicum.controller;
+package ru.yandex.practicum.controller;
 
 import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
-import ru.practicum.service.hub.HubService;
-import ru.practicum.service.sensor.SensorService;
+import ru.yandex.practicum.service.hub.HubService;
+import ru.yandex.practicum.service.sensor.SensorService;
 import ru.yandex.practicum.grpc.telemetry.collector.CollectorControllerGrpc;
 import ru.yandex.practicum.grpc.telemetry.event.HubEventProto;
 import ru.yandex.practicum.grpc.telemetry.event.SensorEventProto;
