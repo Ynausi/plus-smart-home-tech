@@ -34,41 +34,4 @@ public class AggregationStarter {
                                 s
                         ));
     }
-
-
-    /*public void start() {
-        try {
-            consumer.subscribe(TOPICS);
-            while (true) {
-                ConsumerRecords<String,SensorEventAvro> records =
-                        consumer.poll(Duration.ofSeconds(1));
-                for(ConsumerRecord<String,SensorEventAvro> record:records) {
-                    SensorEventAvro event = record.value();
-                    Optional<SensorSnapshotAvro> snapshot = snapshotService.updateState(event);
-                    snapshot.ifPresent(s->
-                            producer.send(new ProducerRecord<>(
-                                    SNAPSHOTS_TOPIC,
-                                    s.getHubId(),
-                                    s
-                            ))
-                    );
-                }
-            }
-        } catch (WakeupException ignored) {
-            // игнорируем - закрываем консьюмер и продюсер в блоке finally
-        } catch (Exception e) {
-            log.error("Ошибка во время обработки событий от датчиков", e);
-        } finally {
-            try {
-                producer.flush();
-                consumer.commitSync();
-
-            } finally {
-                log.info("Закрываем консьюмер");
-                consumer.close();
-                log.info("Закрываем продюсер");
-                producer.close();
-            }
-        }
-    }*/
 }

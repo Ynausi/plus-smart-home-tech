@@ -11,4 +11,4 @@ spring:
 
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: ru.practicum.kafka.GeneralAvroSerializer
+      value-serializer: ru.yandex.practicum.kafka.GeneralAvroSerializer
