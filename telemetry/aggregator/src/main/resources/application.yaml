@@ -7,9 +7,9 @@ spring:
 
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: ru.practicum.kafka.GeneralAvroSerializer
+      value-serializer: ru.yandex.practicum.kafka.GeneralAvroSerializer
 
     consumer:
       group-id: aggregator
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: ru.practicum.kafka.SensorEventDeserializer
+      value-deserializer: ru.yandex.practicum.kafka.SensorEventDeserializer
