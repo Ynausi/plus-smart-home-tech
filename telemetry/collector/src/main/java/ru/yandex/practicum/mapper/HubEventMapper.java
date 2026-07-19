@@ -1,46 +1,15 @@
 package ru.yandex.practicum.mapper;
 
-import com.google.protobuf.Timestamp;
 import org.mapstruct.*;
-import ru.yandex.practicum.dto.hub.*;
 import ru.yandex.practicum.dto.hub.*;
 import ru.yandex.practicum.grpc.telemetry.event.*;
 import ru.yandex.practicum.kafka.telemetry.hub.*;
 
-import java.time.Instant;
-
 @Mapper(componentModel = "spring",imports = HubEventType.class)
 public interface HubEventMapper {
 
-    default HubEventDto fromProto(HubEventProto proto) {
-        return switch (proto.getPayloadCase()) {
-            case DEVICE_ADDED -> {
-                DeviceAddedEventDto dto = fromProto(proto.getDeviceAdded());
-                dto.setHubId(proto.getHubId());
-                dto.setTimestamp(fromTimestamp(proto.getTimestamp()));
-                yield dto;
-            }
-            case DEVICE_REMOVED -> {
-                DeviceRemovedEventDto dto = fromProto(proto.getDeviceRemoved());
-                dto.setHubId(proto.getHubId());
-                dto.setTimestamp(fromTimestamp(proto.getTimestamp()));
-                yield dto;
-            }
-            case SCENARIO_ADDED -> {
-                ScenarioAddedEventDto dto = fromProto(proto.getScenarioAdded());
-                dto.setHubId(proto.getHubId());
-                dto.setTimestamp(fromTimestamp(proto.getTimestamp()));
-                yield dto;
-            }
-            case SCENARIO_REMOVED -> {
-                ScenarioRemovedEventDto dto = fromProto(proto.getScenarioRemoved());
-                dto.setHubId(proto.getHubId());
-                dto.setTimestamp(fromTimestamp(proto.getTimestamp()));
-                yield dto;
-            }
-            case PAYLOAD_NOT_SET -> throw new IllegalArgumentException("Payload not set");
-        };
-    }
+    int BOOLEAN_TRUE = 1;
+    int BOOLEAN_FALSE = 0;
 
     @Mapping(target = "hubId", ignore = true)
     @Mapping(target = "timestamp", ignore = true)
@@ -61,21 +30,6 @@ public interface HubEventMapper {
     @Mapping(target = "timestamp", ignore = true)
     ScenarioRemovedEventDto fromProto(ScenarioRemovedEventProto proto);
 
-    default ScenarioConditionDto fromProto(ScenarioConditionProto proto) {
-        ScenarioConditionDto dto = new ScenarioConditionDto();
-
-        dto.setSensorId(proto.getSensorId());
-        dto.setType(fromProto(proto.getType()));
-        dto.setOperation(fromProto(proto.getOperation()));
-
-        switch (proto.getValueCase()) {
-            case BOOL_VALUE -> dto.setValue(proto.getBoolValue() ? 1 : 0);
-            case INT_VALUE -> dto.setValue(proto.getIntValue());
-            case VALUE_NOT_SET -> dto.setValue(null);
-        }
-
-        return dto;
-    }
 
     @Mapping(target = "sensorId", source = "sensorId")
     @Mapping(target = "type", source = "type")
@@ -97,19 +51,7 @@ public interface HubEventMapper {
     @ValueMapping(source = "UNRECOGNIZED",
             target = MappingConstants.THROW_EXCEPTION)
     ScenarioConditionOperation fromProto(ConditionOperationProto proto);
-    default HubEventAvro toAvro(HubEventDto dto) {
-        Object payload = switch (dto.getType()) {
-            case DEVICE_ADDED -> toAvro((DeviceAddedEventDto) dto);
-            case DEVICE_REMOVED -> toAvro((DeviceRemovedEventDto) dto);
-            case SCENARIO_ADDED -> toAvro((ScenarioAddedEventDto) dto);
-            case SCENARIO_REMOVED -> toAvro((ScenarioRemovedEventDto) dto);
-        };
-        return HubEventAvro.newBuilder()
-                .setHubId(dto.getHubId())
-                .setTimestamp(dto.getTimestamp())
-                .setPayload(payload)
-                .build();
-    }
+
 
     @Mapping(target = "type",source = "deviceType")
     DeviceAddedEventAvro toAvro(DeviceAddedEventDto dto);
@@ -133,18 +75,22 @@ public interface HubEventMapper {
     @Mapping(target = "value", source = "value")
     DeviceActionAvro toAvro(DeviceActionDto dto);
 
+    default ScenarioConditionDto fromProto(ScenarioConditionProto proto) {
+        ScenarioConditionDto dto = new ScenarioConditionDto();
 
-    @Named("instantToMillis")
-    default long instantToMillis(Instant instant) {
-        return instant == null
-                ? Instant.now().toEpochMilli()
-                : instant.toEpochMilli();
-    }
+        dto.setSensorId(proto.getSensorId());
+        dto.setType(fromProto(proto.getType()));
+        dto.setOperation(fromProto(proto.getOperation()));
 
-    default Instant fromTimestamp(Timestamp timestamp) {
-        return Instant.ofEpochSecond(
-                timestamp.getSeconds(),
-                timestamp.getNanos()
-        );
+        switch (proto.getValueCase()) {
+            case BOOL_VALUE ->
+                    dto.setValue(proto.getBoolValue() ? BOOLEAN_TRUE : BOOLEAN_FALSE);
+            case INT_VALUE ->
+                    dto.setValue(proto.getIntValue());
+            case VALUE_NOT_SET ->
+                    dto.setValue(null);
+        }
+
+        return dto;
     }
 }

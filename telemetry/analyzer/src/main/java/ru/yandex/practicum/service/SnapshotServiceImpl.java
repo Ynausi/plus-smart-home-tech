@@ -84,49 +84,56 @@ public class SnapshotServiceImpl implements SnapshotService {
         Condition condition = scenarioCondition.getCondition();
         String sensorId = scenarioCondition.getSensor().getId();
         SensorStateAvro state = snapshotAvro.getSensorsState().get(sensorId);
+
         if (state == null) {
             return false;
         }
-        switch (condition.getType()) {
-            case "MOTION" -> {
-                MotionSensorAvro data = (MotionSensorAvro) state.getData();
 
-                return switch (condition.getOperation()) {
-                    case "EQUALS" ->
-                            data.getMotion() == (((Integer) condition.getValue())==1);
-                    default -> false;
-                };
-            }
-            case "TEMPERATURE" -> {
-                ClimateSensorAvro data = (ClimateSensorAvro) state.getData();
+        return switch (condition.getType()) {
+            case "MOTION" -> checkMotionCondition(condition, state);
+            case "TEMPERATURE" -> checkTemperatureCondition(condition, state);
+            case "LUMINOSITY" -> checkLuminosityCondition(condition, state);
+            case "SWITCH" -> checkSwitchCondition(condition, state);
+            default -> false;
+        };
+    }
+    private boolean checkMotionCondition(Condition condition, SensorStateAvro state) {
+        MotionSensorAvro data = (MotionSensorAvro) state.getData();
 
-                return switch (condition.getOperation()) {
-                    case "LOWER_THAN" ->
-                        data.getTemperatureC() < (Integer) condition.getValue();
-                    default -> false;
-                };
-            }
-            case "LUMINOSITY" -> {
-                LightSensorAvro data = (LightSensorAvro) state.getData();
+        return switch (condition.getOperation()) {
+            case "EQUALS" ->
+                    data.getMotion() == ((Integer) condition.getValue() == 1);
+            default -> false;
+        };
+    }
 
-                return switch (condition.getOperation()) {
-                    case "LOWER_THAN" ->
-                        data.getLuminosity() < (Integer) condition.getValue();
-                    default -> false;
-                };
-            }
-            case "SWITCH" -> {
-                SwitchSensorAvro data = (SwitchSensorAvro) state.getData();
+    private boolean checkTemperatureCondition(Condition condition, SensorStateAvro state) {
+        ClimateSensorAvro data = (ClimateSensorAvro) state.getData();
 
-                return switch ((condition.getOperation())) {
-                    case "EQUALS" ->
-                            data.getState() == (((Integer) condition.getValue()) == 1);
-                    default -> false;
-                };
-            }
-            default -> {
-                return false;
-            }
-        }
+        return switch (condition.getOperation()) {
+            case "LOWER_THAN" ->
+                    data.getTemperatureC() < (Integer) condition.getValue();
+            default -> false;
+        };
+    }
+
+    private boolean checkLuminosityCondition(Condition condition, SensorStateAvro state) {
+        LightSensorAvro data = (LightSensorAvro) state.getData();
+
+        return switch (condition.getOperation()) {
+            case "LOWER_THAN" ->
+                    data.getLuminosity() < (Integer) condition.getValue();
+            default -> false;
+        };
+    }
+
+    private boolean checkSwitchCondition(Condition condition, SensorStateAvro state) {
+        SwitchSensorAvro data = (SwitchSensorAvro) state.getData();
+
+        return switch (condition.getOperation()) {
+            case "EQUALS" ->
+                    data.getState() == ((Integer) condition.getValue() == 1);
+            default -> false;
+        };
     }
 }
