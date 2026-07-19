@@ -8,6 +8,9 @@ import ru.yandex.practicum.kafka.telemetry.hub.*;
 @Mapper(componentModel = "spring",imports = HubEventType.class)
 public interface HubEventMapper {
 
+    int BOOLEAN_TRUE = 1;
+    int BOOLEAN_FALSE = 0;
+
     @Mapping(target = "hubId", ignore = true)
     @Mapping(target = "timestamp", ignore = true)
     @Mapping(target = "deviceType",source = "type")
@@ -81,7 +84,7 @@ public interface HubEventMapper {
 
         switch (proto.getValueCase()) {
             case BOOL_VALUE ->
-                    dto.setValue(proto.getBoolValue() ? 1 : 0);
+                    dto.setValue(proto.getBoolValue() ? BOOLEAN_TRUE : BOOLEAN_FALSE);
             case INT_VALUE ->
                     dto.setValue(proto.getIntValue());
             case VALUE_NOT_SET ->

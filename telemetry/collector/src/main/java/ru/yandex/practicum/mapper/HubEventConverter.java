@@ -13,8 +13,6 @@ import java.time.Instant;
 @RequiredArgsConstructor
 public class HubEventConverter {
 
-    private static final int BOOLEAN_TRUE = 1;
-    private static final int BOOLEAN_FALSE = 0;
 
     private final HubEventMapper mapper;
 
