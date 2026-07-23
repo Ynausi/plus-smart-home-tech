@@ -13,3 +13,7 @@ spring:
       group-id: aggregator
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: ru.yandex.practicum.kafka.SensorEventDeserializer
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
