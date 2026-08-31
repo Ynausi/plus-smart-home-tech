@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+grpc:
+  server:
+    port: 59091
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: ru.yandex.practicum.kafka.GeneralAvroSerializer
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
