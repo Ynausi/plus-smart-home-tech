@@ -1,0 +1,11 @@
+package ru.yandex.practicum.inventory.service;
+import lombok.RequiredArgsConstructor; import org.springframework.stereotype.Service; import org.springframework.transaction.annotation.Transactional; import ru.yandex.practicum.inventory.dto.*; import ru.yandex.practicum.inventory.entity.Inventory; import ru.yandex.practicum.inventory.exception.*; import ru.yandex.practicum.inventory.repository.InventoryRepository; import java.util.List;
+@Service @RequiredArgsConstructor @Transactional(readOnly=true) public class InventoryService { private final InventoryRepository repository;
+ public List<InventoryDto> findAll(){return repository.findAll().stream().map(this::toDto).toList();}
+ public InventoryDto findByProductId(Long id){return toDto(findEntity(id));}
+ @Transactional public InventoryDto create(UpdateInventoryRequest r){if(repository.existsByProductId(r.productId()))throw new InventoryConflictException("Складская запись для productId="+r.productId()+" уже существует"); Inventory i=new Inventory(); i.setProductId(r.productId()); i.setQuantity(r.quantity()); i.setReservedQuantity(0); return toDto(repository.save(i));}
+ @Transactional public InventoryDto update(UpdateInventoryRequest r){Inventory i=findEntity(r.productId()); if(r.quantity()<i.getReservedQuantity())throw new InventoryConflictException("Общее количество товара не может быть меньше уже зарезервированного: "+i.getReservedQuantity()); i.setQuantity(r.quantity()); return toDto(repository.save(i));}
+ @Transactional public ReserveResponse reserve(ReserveRequest r){Inventory i=findEntity(r.productId()); int available=i.availableQuantity(); if(available<r.quantity())throw new InsufficientStockException("Недостаточно товара productId="+r.productId()+": доступно "+available+", запрошено "+r.quantity()); i.setReservedQuantity(i.getReservedQuantity()+r.quantity()); Inventory saved=repository.saveAndFlush(i); return new ReserveResponse(true,saved.availableQuantity(),"Товар успешно зарезервирован");}
+ private Inventory findEntity(Long productId){return repository.findByProductId(productId).orElseThrow(()->new NotFoundException("Складская запись для productId="+productId+" не найдена"));}
+ private InventoryDto toDto(Inventory i){return new InventoryDto(i.getId(),i.getProductId(),i.getQuantity(),i.getReservedQuantity(),i.availableQuantity());}
+}

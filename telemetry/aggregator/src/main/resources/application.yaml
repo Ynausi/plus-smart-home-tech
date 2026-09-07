@@ -1,15 +1,11 @@
-server:
-  port: 8081
-
 spring:
-  kafka:
-    bootstrap-servers: localhost:9092
-
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: ru.yandex.practicum.kafka.GeneralAvroSerializer
-
-    consumer:
-      group-id: aggregator
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: ru.yandex.practicum.kafka.SensorEventDeserializer
+  application:
+    name: aggregator
+  config:
+    import: configserver:http://localhost:8888
+  cloud:
+    config:
+      fail-fast: true
+      retry:
+        useRandomPolicy: true
+        max-interval: 6000
