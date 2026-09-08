@@ -1,5 +1,6 @@
 server:
   port: 0
+
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -13,6 +14,22 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 2000
+            readTimeout: 5000
+          inventory-service:
+            connectTimeout: 1500
+            readTimeout: 3000
+            loggerLevel: BASIC
+
+logging:
+  level:
+    ru.yandex.practicum.order.client.InventoryClient: DEBUG
+
 eureka:
   client:
     service-url:
