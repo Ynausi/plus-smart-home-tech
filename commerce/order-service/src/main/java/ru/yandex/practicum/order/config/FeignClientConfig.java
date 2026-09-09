@@ -1,12 +1,14 @@
 package ru.yandex.practicum.order.config;
 
 import feign.RequestInterceptor;
+import feign.codec.ErrorDecoder;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import ru.yandex.practicum.order.exception.OrderProcessingException;
 
 import java.util.UUID;
 
@@ -18,6 +20,45 @@ public class FeignClientConfig {
     @Bean
     public RequestInterceptor requestIdInterceptor() {
         return template -> template.header(REQUEST_ID_HEADER, resolveRequestId());
+    }
+
+    @Bean
+    public ErrorDecoder orderFeignErrorDecoder() {
+        ErrorDecoder defaultDecoder = new ErrorDecoder.Default();
+
+        return (methodKey, response) -> {
+            int status = response.status();
+
+            if (status >= 400 && status < 500) {
+                if (methodKey.contains("ProductClient")) {
+                    if (status == 404) {
+                        return new OrderProcessingException("Товар не найден");
+                    }
+                    return new OrderProcessingException(
+                            "product-service отклонил запрос, HTTP " + status
+                    );
+                }
+
+                if (methodKey.contains("InventoryClient")) {
+                    if (status == 404) {
+                        return new OrderProcessingException("Складская запись не найдена");
+                    }
+                    if (status == 409) {
+                        return new OrderProcessingException("Недостаточно товара на складе");
+                    }
+                    if (status == 400) {
+                        return new OrderProcessingException(
+                                "inventory-service отклонил складскую операцию"
+                        );
+                    }
+                    return new OrderProcessingException(
+                            "inventory-service отклонил запрос, HTTP " + status
+                    );
+                }
+            }
+
+            return defaultDecoder.decode(methodKey, response);
+        };
     }
 
     private String resolveRequestId() {
