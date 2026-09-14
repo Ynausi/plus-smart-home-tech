@@ -16,11 +16,13 @@ public class CategoryController {
         return service.findAll();
     }
 
-    @GetMapping("/{id}") public CategoryDto byId(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public CategoryDto byId(@PathVariable Long id) {
         return service.findById(id);
     }
 
-    @PostMapping public ResponseEntity<CategoryDto> create(@Valid @RequestBody CreateCategoryRequest request) {
+    @PostMapping
+    public ResponseEntity<CategoryDto> create(@Valid @RequestBody CreateCategoryRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(request));
     }
 }
