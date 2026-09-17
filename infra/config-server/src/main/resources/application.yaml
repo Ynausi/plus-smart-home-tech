@@ -10,5 +10,6 @@ spring:
           searchLocations:
             - classpath:config/telemetry/{application}
             - classpath:config/commerce/{application}
+            - file:./infra/config-repo/infra/
 server:
   port: 8888
