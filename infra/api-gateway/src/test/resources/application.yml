@@ -1,8 +1,17 @@
 spring:
   application:
     name: api-gateway
-  config:
-    import: configserver:http://localhost:8888
+
+  cloud:
+    config:
+      enabled: false
+
+    discovery:
+      enabled: false
+
+eureka:
+  client:
+    enabled: false
 
 app:
   security:
