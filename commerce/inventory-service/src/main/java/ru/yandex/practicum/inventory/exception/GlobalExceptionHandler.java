@@ -23,6 +23,12 @@ public class GlobalExceptionHandler {
         return new ErrorResponse(HttpStatus.NOT_FOUND.value(), e.getMessage());
     }
 
+    @ExceptionHandler(InvalidReservationReleaseException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleInvalidReservationRelease(InvalidReservationReleaseException e) {
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    }
+
     @ExceptionHandler({
             InsufficientStockException.class,
             InventoryConflictException.class,
